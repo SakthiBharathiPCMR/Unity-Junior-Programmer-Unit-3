@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
             isOnGround = false;
             playerAnimator.SetTrigger("Jump_trig");
             dirtParticle.Stop();
-            playerAudioSource.PlayOneShot(jumpSound,1.0f);
+            playerAudioSource.PlayOneShot(jumpSound, 1.0f);
         }
 
     }
@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (isGameOver) return;
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("GameOver");
             explosionParticle.Play();
             isGameOver = true;
-            playerAnimator.SetBool("Death_b",true);
+            playerAnimator.SetBool("Death_b", true);
             playerAnimator.SetInteger("DeathType_int", 1);
 
             dirtParticle.Stop();
